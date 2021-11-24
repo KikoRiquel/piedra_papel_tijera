@@ -1,26 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author alumno
- */
-
 import java.util.Scanner;
+import javax.sound.sampled.SourceDataLine;
 
 public class main {
 
   /**
    * @param args the command line arguments
    */
-
-  public static void main(String[] args) {
+  public static void ppt() {
     Scanner sc = new Scanner(System.in);
+    int contMaquina = 0;
+    int contJugador = 0;
 
-    while (true) {
+    while ((contMaquina != 3) && (contJugador != 3)) {
       String miMovimiento = sc.nextLine();
 
       if (miMovimiento.equals("quitar")) {
@@ -37,12 +28,16 @@ public class main {
         int rand = (int) (Math.random() * 3);
 
         String jugadaMaquina = "";
-        if (rand == 0) {
-          jugadaMaquina = "piedra";
-        } else if (rand == 1) {
-          jugadaMaquina = "papel";
-        } else {
-          jugadaMaquina = "tijeras";
+        switch (rand) {
+          case 0:
+            jugadaMaquina = "piedra";
+            break;
+          case 1:
+            jugadaMaquina = "papel";
+            break;
+          case 2:
+            jugadaMaquina = "tijeras";
+            break;
         }
 
         System.out.println("La maquina ha sacado " + jugadaMaquina);
@@ -58,14 +53,47 @@ public class main {
             (miMovimiento.equals("tijeras") && jugadaMaquina.equals("papel"))
           ) {
             System.out.println("has ganado");
+            contJugador++;
+            System.out.println(
+              "Marcador: Jugador " + contJugador + " Maquina " + contMaquina
+            );
           } else {
             System.out.println("has perdido");
+            contMaquina++;
+            System.out.println(
+              "Marcador: Jugador " + contJugador + " Maquina " + contMaquina
+            );
           }
         }
+
         System.out.println();
+
+        if ((contMaquina == 3) || (contJugador == 3)) {
+          System.out.println("Quieres volver a jugar? S/N");
+          char respuesta = sc.next().charAt(0);
+          respuesta = Character.toUpperCase(respuesta);
+
+          if ((respuesta != 'S') && (respuesta != 'N')) {
+            System.out.println("opcion no valida");
+          } else {
+            switch (respuesta) {
+              case 'S':
+                ppt();
+                System.out.println(" ");
+                break;
+              case 'N':
+                break;
+            }
+          }
+        }
       }
     }
   }
+
+  public static void main(String[] args) {
+    //Scanner sc = new Scanner(System.in);
+
+    ppt();
+    
+  }
 }
-/* -------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------- */
